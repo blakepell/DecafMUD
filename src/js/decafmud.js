@@ -207,6 +207,10 @@ DecafMUD.plugins = {
 	/** These plugins provide user interfaces for the client.
 	 * @type Object */
 	Interface	: {},
+
+	/** These plugins provide menu actions for the interface, if it uses that
+	 * @type Object */
+	Menu            : {},
 	
 	/** These plugins provide translations to other languages.
 	 * @type Object */
@@ -1266,6 +1270,9 @@ DecafMUD.prototype.initSocket = function() {
 	// Create the master storage object.
 	this.store = new DecafMUD.plugins.Storage[this.options.storage](this);
 	this.storage = this.store;
+
+	// Menus
+	this.menu = new DecafMUD.plugins.Menu[this.options.menu](this);
 	
 	if ( this.ui ) {
 		// Push a junk element to need so the status bar shows properly.
@@ -1835,6 +1842,8 @@ DecafMUD.options = {
 
 		connect_hint	: true
 	},
+
+	menu : 'basic',
 	
 	// Telnet Settings
 	ttypes			: ['decafmud-'+DecafMUD.version,'decafmud','xterm','unknown'],

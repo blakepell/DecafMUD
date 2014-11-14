@@ -446,24 +446,23 @@ SimpleInterface.prototype.setup = function() {
         this.display.id = 'mud-display';
 	this.decaf.display = this.display;
 
-        /*
         // Make the menu
-        var menus = get_menus();
+        var menus = this.decaf.menu.get_menus();
         for (i = 0; i < menus.length; i+=3) {
           this.tbNew(
             menus[i],
             menus[i+1].tr(this.decaf),
             undefined,
-            undefined,
-//            menus[i+2].tr(this.decaf),
+            menus[i+2].tr(this.decaf),
             1,
             true,
             false,
             undefined,
-            function(i) {return function(e) {toggle_menu(i/3);}} (i)
+            function(i) {return function(e) {this.decaf.menu.toggleMenu(i/3);}} (i)
           );
         }
-        */
+        this.decaf.menu.close_menus();
+        this.decaf.menu.addMenuEvents();
 
 	
 	// Should we go fullscreen automatically?
@@ -1618,7 +1617,7 @@ SimpleInterface.prototype.showPopup = function() {
 
   // Make sure menus are closed when the mouse clicks on us
   addEvent(this.popup, 'mousedown', function(e) {
-     if ( e.which == 1 && open_menu !== -1 ) { close_menus(); }
+     if ( e.which == 1 && open_menu !== -1 ) { this.decaf.menu.close_menus(); }
   });
 
   return this.popup;
